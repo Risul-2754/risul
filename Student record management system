@@ -1,0 +1,196 @@
+#include <stdio.h>
+#include <string.h>
+#include <conio.h>
+struct student{
+    char ID[15];
+    char name[20];
+    char add[20];
+    char parname[20];
+    int Class;
+    float comp_f;
+    float english;
+    float intro_software;
+    float phy;
+    long unsigned int phone_no;
+};
+struct student stu;
+
+char username[10] = {"Rudro"};
+char password[10]={"123"};
+void window(){
+    printf("STUDENT RESULT MANAGEMENT SYSTEM");
+printf("\nDaffodil International University, Dhaka-1207, Bangladesh");
+    printf("\nEstd.: 2000\n");
+
+}
+
+
+void add_student(){
+    system("cls");
+    window();
+    printf("Add Record");
+    int print = 37;
+    FILE *fp;
+    fp = fopen("record.txt","ab+");
+    if(fp == NULL){
+       printf(0,"Error in Opening file\nMake sure your file is not write protected","Warning",0);
+
+    }else{
+        fflush(stdin);
+printf("ID: ");gets(stu.ID);
+printf("Name: ");gets(stu.name);
+printf("Address: ");gets(stu.add);
+printf("Parent's name: ");gets(stu.parname);
+printf("Class: ");scanf("%d",&stu.Class);
+printf("Phone Number: ");scanf("%ld",&stu.phone_no);
+printf("English: ");scanf("%lf",&stu.english);
+printf("Introduction To Software Engineering: ");scanf("%lf",&stu.intro_software);
+printf("Computer Fundamental: ");scanf("%lf",&stu.comp_f);
+
+
+        fwrite(&stu, sizeof(stu), 1, fp);
+printf("The record is sucessfully added");
+    }
+    fclose(fp);
+    return;
+}
+
+void search_student(){
+    system("cls");
+    window();
+   printf("Search Record: ");
+    char s_id[15];
+    int isFound = 0;
+    printf("Enter ID to Search: ");fflush(stdin);
+    gets(s_id);
+    FILE *fp;
+    fp = fopen("record.txt","rb");
+    while(fread(&stu,sizeof(stu),1,fp) == 1){
+        if(strcmp(s_id,stu.ID) == 0){
+            isFound = 1;
+            break;
+        }
+    }
+    if(isFound == 1){
+printf("The record is Found \n");
+printf("ID: %s\n",stu.ID);
+printf("Name: %s\n",stu.name);
+printf("Address: %s\n",stu.add);
+printf("Parent's Name: %s\n",stu.parname);
+printf("Class: %d\n",stu.Class);
+printf("Phone No: %ld\n",stu.phone_no);
+    }else{
+printf("\nSorry, No record found in the database\n");
+    }
+    fclose(fp);
+  getch();
+    system("cls");
+      window();
+
+}
+
+void studentlist(){
+    system("cls");
+    window();
+    char s_id[15];
+    int isFound = 0;
+    gets(s_id);
+    FILE *fp;
+    fp = fopen("record.txt","rb");
+printf("ID\t Name\t Address\t Parent's Phone");
+while(fread(&stu,sizeof(stu),1,fp) == 1){
+printf("\n%s\t ",stu.ID);
+printf("%s\t ",stu.name);
+printf("%s\t\t ",stu.add);
+printf("%s\t ",stu.parname);
+
+    }
+    fclose(fp);
+  getch();
+    system("cls");
+      window();
+
+}
+
+
+void main_window(){
+    system("cls");
+    window();
+    int choice;
+    int x = 2;
+    while(1){
+system("cls");
+printf("1. Add Student\n");
+printf("2. Search Student\n");
+printf("3. Display all student List\n");
+printf("4. Exit\n");
+printf("Enter your choice: ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                add_student();
+                break;
+            case 2:
+                search_student();
+                break;
+            case 3:
+                studentlist();
+                break;
+            case 4:
+                exit(0);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+}
+
+
+int main(){
+    Password();
+    return 0;
+}
+
+void Password(void)
+{
+    int a;
+for(a=0; a<3; a++){
+   char d[25]="Password Protected";
+   char ch,pass[10], user[10];
+   int i=0,j;
+printf(" \xDB\xDB\xB2 LOG IN  \xDB\xDB\xB2 \n");
+  printf("\n\xDB\xDB\xB2  USER NAME:");
+  scanf("%s",&user);
+  printf("\n\xDB\xDB\xB2 PASSWORD:");
+
+   while(ch!=13)
+   {
+ch=getch();
+
+if(ch!=13 && ch!=8){
+putch('*');
+pass[i] = ch;
+i++;
+}
+   }
+   pass[i] = '\0';
+   if(strcmp(pass,password)==0 && strcmp(user,username)==0)
+   {
+system("cls");
+window();
+
+main_window();
+   }
+   else
+   {
+printf("\aWarning!! Incorrect Password");
+printf("%d", a);
+getch();
+     Password();
+
+   }
+
+}
+}
